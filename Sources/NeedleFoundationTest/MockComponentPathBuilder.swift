@@ -16,7 +16,6 @@
 
 
 import Foundation
-import NeedleFoundation
 
 /// This function allows you to get access to a mock component path builder that you can use to
 /// build mock component paths of type MockComponentPath. You can use these paths to register mock
@@ -34,7 +33,7 @@ public final class MockComponentPathBuilder {
     private var path: [String] = ["^"]
     fileprivate init() {
     }
-    
+
     /// Extend the component path from the leaf component in the current component path to its next child
     /// in the ancestry tree.
     ///
@@ -47,14 +46,14 @@ public final class MockComponentPathBuilder {
         path.append(nodeName)
         return self
     }
-    
+
     /// Build the mock component path based.
     ///
     /// - Returns: The mock component path built based on the settings provided to the mock component path builder.
     public func build() -> MockComponentPath {
         return MockComponentPath(path: pathString())
     }
-    
+
     private func pathString() -> String {
         return path.joined(separator: "->")
     }
@@ -70,7 +69,7 @@ public final class MockComponentPath {
     fileprivate init(path: String) {
         self.path = path
     }
-    
+
     /// Register a dependency provider for the mocked component path.
     public func register(dependencyProvider: AnyObject) {
         preexistingDependencyProviderFactory = __DependencyProviderRegistry.instance.dependencyProviderFactory(for: path)
@@ -79,7 +78,7 @@ public final class MockComponentPath {
         }
         canUnregister = true
     }
-    
+
     /// Unregister a previously registered dependency provider for the mocked component path.
     public func unregister() {
         guard canUnregister else { return }
